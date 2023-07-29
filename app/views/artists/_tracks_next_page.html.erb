@@ -1,0 +1,6 @@
+<%# locals: (artist:, page:) -%>
+<%=turbo_frame_tag dom_id(artist, "tracks_#{page + 1}"),
+                   loading: "lazy",
+                   src: tracks_artist_path(artist:, page: page + 1),
+                   target: "_top"
+%>
