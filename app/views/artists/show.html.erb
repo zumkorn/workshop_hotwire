@@ -1,31 +1,20 @@
-<div class="artist-header">
-  <div class="artist-image">
-    <% if artist.cover.attached? %>
-      <%= image_tag artist.cover %>
-    <% end %>
+<%= render partial: "header", locals: {artist:} %>
+<%= turbo_frame_tag dom_id(artist, :content) do %>
+  <div class="flex flex-row justify-between items-baseline">
+    <h2 class="mt-4 text-header-2">Popular</h2>
+    <%= link_to "See all",
+                tracks_artist_path(artist),
+                class: "text-secondary hover:text-primary transition-colors",
+                data: {"turbo-frame" => "_top", "turbo-action" => "advance"} %>
   </div>
-  <div class="artist-info">
-    <div class="flex items-center">
-      <h1 class="text-header-2"><%= artist.name %></h1>
-    </div>
-    <div>
-      <% artist.tags.each do |tag| %>
-        <span class="meta"><%= tag %></span>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<hr class="my-4">
-
-<h2 class="mt-4 text-header-2">Popular</h2>
-<ul class="tracks mt-2">
-  <%= render tracks, enqueueble: true %>
-  <li class="track">
-    <span class="track--number"></span>
-    <a href="#" class="text-secondary hover:text-primary transition-colors">Load more</a>
-  </li>
-</ul>
+  <ul class="tracks mt-2">
+    <%= render tracks, enqueueble: true %>
+    <li class="track">
+      <span class="track--number"></span>
+      <a href="#" class="text-secondary hover:text-primary transition-colors">Load more</a>
+    </li>
+  </ul>
+<% end %>
 
 <hr class="my-4"/>
 

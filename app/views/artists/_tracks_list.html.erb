@@ -1,0 +1,11 @@
+<%# locals: (artist:, tracks:, page: 1, has_next_page: false) -%>
+<%=turbo_frame_tag dom_id(artist, "tracks_#{page}") do%>
+  <% tracks.each_with_index do |track, index| %>
+    <%= render partial: "tracks/track",
+               locals: {track: track, track_counter: index + ((page - 1) * 5)} %>
+  <% end %>
+
+  <% if has_next_page %>
+    <%=render partial: "tracks_next_page", locals: {artist:, page:} %>
+  <% end %>
+<% end %>
