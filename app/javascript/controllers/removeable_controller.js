@@ -10,6 +10,10 @@ export default class extends Controller {
     }
   }
 
+  close() {
+    this.remove()
+  }
+
   disconnect() {
     if (this.removeTid) clearTimeout(this.removeTid);
   }
