@@ -9,7 +9,11 @@ document.addEventListener("turbo:before-render", (event) => {
   prevPath = window.location.pathname;
   event.detail.render = async (prevEl, newEl) => {
     await new Promise((resolve) => setTimeout(() => resolve(), 0));
-    morphdom(prevEl, newEl);
+    morphdom(prevEl, newEl, {
+      onBeforeElUpdated: function(prevEl, newEl) {
+        return !(prevEl.hasAttribute("data-morph-permanent") || prevEl.isEqualNode(newEl));
+      },
+    })
   };
 
   if (document.startViewTransition) {
