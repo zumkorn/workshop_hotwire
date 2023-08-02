@@ -10,8 +10,8 @@ document.addEventListener("turbo:before-render", (event) => {
   event.detail.render = async (prevEl, newEl) => {
     await new Promise((resolve) => setTimeout(() => resolve(), 0));
     morphdom(prevEl, newEl, {
-      onBeforeElUpdated: function(prevEl, _newEl) {
-        return !(prevEl.dataset.morphPermanent);
+      onBeforeElUpdated: function(prevEl, newEl) {
+        return !(prevEl.hasAttribute("data-morph-permanent") || prevEl.isEqualNode(newEl));
       },
     })
   };
